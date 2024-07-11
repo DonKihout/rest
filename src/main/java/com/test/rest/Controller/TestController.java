@@ -1,37 +1,32 @@
 package com.test.rest.Controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 import com.test.rest.Model.TestModel;
+import jakarta.validation.Valid;
 
 
 @RestController
 public class TestController {
-    
+
+  
     @GetMapping(value = "getTest", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public Object getTest() {
-      Map<String, Object> object = new HashMap<>();
-      object.put("name", "zaglushka");
-      return object;
+    public ResponseEntity<String> getTest() throws InterruptedException {
+      Thread.sleep(2500);
+      return new ResponseEntity<String>("{\"name\" : \"zaglushka\"}", HttpStatus.OK);
     }
 
     @PostMapping(value = "postTest", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public Object postTest(@RequestBody TestModel testModel) {
-      Map<String, String> object = new HashMap<>();
-      object.put("login", testModel.login);
-      object.put("password", testModel.password);
-      object.put("currentTime", new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-      return object;
+    public ResponseEntity<TestModel> postTest(@Valid @RequestBody TestModel testModel, BindingResult bindingResult) throws InterruptedException {
+      Thread.sleep(2000);
+      if (bindingResult.hasErrors()) return new ResponseEntity<TestModel>(HttpStatus.valueOf(400));
+      return new ResponseEntity<TestModel>(testModel, HttpStatus.OK);  
     }
 
 }
