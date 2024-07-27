@@ -14,7 +14,7 @@ public class User {
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,20}$")
     public String password;
 
-    @Pattern(regexp = "^(?=.*[0-9]).{5,50}$")
+    @Pattern(regexp = "\\d+")
     @NotNull
     public Date date;
     
