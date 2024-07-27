@@ -19,14 +19,14 @@ public class PostgreSQL {
     private String  jdbcURL;
 
     @Value( "${jdbc.login}" )
-    private String login;
+    private String db_login;
 
     @Value( "${jdbc.password}" )
-    private String password;
+    private String db_password;
 
     public SimpleEntry<?, Integer> selectUserByLogin(String login){
         try {
-            Connection dbConnection = DriverManager.getConnection(jdbcURL, login, password);
+            Connection dbConnection = DriverManager.getConnection(jdbcURL, db_login, db_password);
             Statement statement = dbConnection.createStatement();
             ResultSet queryResult = statement.executeQuery(String.format("SELECT users.login, password, date, email " +
                                                                          "FROM users " +
@@ -55,7 +55,7 @@ public class PostgreSQL {
     }
     
     public SimpleEntry<String, Integer> insertUser(User user){
-        try (Connection dbConnection = DriverManager.getConnection(jdbcURL, login, password)){
+        try (Connection dbConnection = DriverManager.getConnection(jdbcURL, db_login, db_password)){
             PreparedStatement preparedStatement = dbConnection.prepareStatement("INSERT INTO users (login, password, date) Values (?, ?, ?);" +
                                                                                 "INSERT INTO emails (login, email) Values (?, ?);");
             preparedStatement.setString(1, user.login);
