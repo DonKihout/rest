@@ -18,6 +18,7 @@ public class User {
     @NotNull
     public Date date;
     
+    @NotNull
     @Email
     public String email;
 
