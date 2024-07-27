@@ -51,7 +51,7 @@ public class TestController {
         if (bindingResult.hasErrors()) return new ResponseEntity<>("Incorrect user data!",HttpStatus.valueOf(400));
         Thread.sleep(2000);
         return PostgreBusinessLayer.postUser(user);
-      } catch (InterruptedException ex) {
+      } catch (Exception ex) {
         return new ResponseEntity<String>(ex.getMessage(),HttpStatus.valueOf(500));
       }    
     }
