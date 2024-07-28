@@ -4,6 +4,7 @@ import java.sql.Date;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 
 public class User {
@@ -15,6 +16,7 @@ public class User {
     public String password;
 
     @NotNull
+    @PastOrPresent
     public Date date;
     
     @NotNull

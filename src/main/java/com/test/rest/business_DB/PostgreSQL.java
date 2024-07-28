@@ -1,6 +1,7 @@
 package com.test.rest.business_DB;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,7 +61,7 @@ public class PostgreSQL {
                                                                                 "INSERT INTO emails (login, email) Values (?, ?);");
             preparedStatement.setString(1, user.login);
             preparedStatement.setString(2, user.password);
-            preparedStatement.setDate(3, user.date);
+            preparedStatement.setDate(3, new Date(user.date.getTime()));
             preparedStatement.setString(4, user.login);
             preparedStatement.setString(5, user.email);
             int updRows = preparedStatement.executeUpdate();
